@@ -1,0 +1,386 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Get Online Microsoft Teams Meetings",
+    "description": "Custom connector for calling Microsoft Teams Online Meeting Graph API endpoints for tracking, including meeting insights, transcripts, recordings, and attendance data.",
+    "version": "1.2"
+  },
+  "host": "graph.microsoft.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/v1.0/me/calendar/events": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "List Calendar Events",
+        "description": "Retrieves events from the user's Outlook/Teams calendar, including meetings with joinWebUrl.",
+        "operationId": "listCalendarEvents",
+        "x-ms-visibility": "important",
+        "parameters": []
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "Get Online Meeting by Join URL",
+        "description": "Retrieves an online meeting object (internal meetingId) by filtering on its Teams joinWebUrl.",
+        "operationId": "getOnlineMeetingByJoinUrl",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User ID",
+            "x-ms-summary": "User ID"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "JoinWebUrl eq 'joinWebUrl'",
+            "x-ms-visibility": "important",
+            "description": "Filter by Join URL",
+            "x-ms-summary": "Filter by Join URL"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/attendanceReports": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "List Attendance Reports",
+        "operationId": "listAttendanceReports",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/attendanceReports/{reportId}/attendanceRecords": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "List Attendance Records",
+        "operationId": "listAttendanceRecords",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/transcripts": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "List Call Transcripts",
+        "operationId": "listCallTranscripts",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/transcripts/{transcriptId}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "Get Call Transcript",
+        "operationId": "getCallTranscript",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "transcriptId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/transcripts/{transcriptId}/content": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "Transcript content in VTT format"
+          }
+        },
+        "summary": "Get Call Transcript Content",
+        "operationId": "getCallTranscriptContent",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "transcriptId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "text/vtt",
+            "x-ms-visibility": "advanced"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/recordings": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "List Call Recordings",
+        "operationId": "listCallRecordings",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/recordings/{recordingId}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "Get Call Recording",
+        "operationId": "getCallRecording",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1.0/users/{userId}/onlineMeetings/{meetingId}/recordings/{recordingId}/content": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "Recording content as binary video file"
+          }
+        },
+        "summary": "Get Call Recording Content",
+        "operationId": "getCallRecordingContent",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/beta/copilot/users/{userId}/onlineMeetings/{onlineMeetingId}/aiInsights": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "List Call AI Insights",
+        "operationId": "listCallAiInsights",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onlineMeetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/beta/copilot/users/{userId}/onlineMeetings/{onlineMeetingId}/aiInsights/{aiInsightId}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default"
+          }
+        },
+        "summary": "Get Call AI Insights",
+        "operationId": "getCallAiInsights",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onlineMeetingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "aiInsightId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2-auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "tokenUrl": "https://login.windows.net/common/oauth2/authorize",
+      "scopes": {
+        "offline_access openid profile https://graph.microsoft.com/OnlineMeetings.Read https://graph.microsoft.com/OnlineMeetingArtifact.Read.All": "offline_access openid profile https://graph.microsoft.com/OnlineMeetings.Read https://graph.microsoft.com/OnlineMeetingArtifact.Read.All"
+      },
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize"
+    }
+  },
+  "security": [
+    {
+      "oauth2-auth": [
+        "offline_access openid profile https://graph.microsoft.com/OnlineMeetings.Read https://graph.microsoft.com/OnlineMeetingArtifact.Read.All"
+      ]
+    }
+  ]
+}
